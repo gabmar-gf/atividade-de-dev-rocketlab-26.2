@@ -244,3 +244,26 @@ class DimReview(Base):
     nota_media_usuarios: Mapped[float | None] = mapped_column(Double, default=None)
 
     movie: Mapped[DimMovie] = relationship(back_populates="reviews_summary")
+
+class Watchlist(Base):
+    """Filmes adicionados à watchlist."""
+
+    __tablename__ = "watchlist"
+
+    sk_watchlist_id: Mapped[str] = mapped_column(
+        String(64), primary_key=True, default=generate_surrogate_key
+    )
+
+    sk_movie_id: Mapped[str] = mapped_column(
+        String(64),
+        ForeignKey("dim_movies.sk_movie_id", ondelete="CASCADE"),
+        nullable=False,
+        unique=True,
+        index=True,
+    )
+
+    created_at: Mapped[datetime] = mapped_column(
+        server_default=func.now()
+    )
+
+    movie: Mapped[DimMovie] = relationship()

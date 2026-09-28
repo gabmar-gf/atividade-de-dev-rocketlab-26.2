@@ -153,6 +153,7 @@ Caso os arquivos CSV estejam disponíveis localmente, após executar as migratio
 
 ```bash
 python seed.py
+```
 
 Inicie o servidor:
 
